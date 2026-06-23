@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CareerPilot AI</title>
+</head>
+<body>
+
+<h1>
+    Welcome {{ username }}
+</h1>
+
+<h2>
+    CareerPilot AI Dashboard
+</h2>
+
+<form
+    action="/upload"
+    method="POST"
+    enctype="multipart/form-data"
+>
+
+    <input
+        type="file"
+        name="resume"
+        accept=".pdf"
+        required
+    >
+
+    <button type="submit">
+        Upload Resume
+    </button>
+
+</form>
+
+<br>
+
+<a href="/logout">
+    Logout
+</a>
+
+</body>
+</html>
