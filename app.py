@@ -5,6 +5,7 @@ from flask import (
     redirect,
     session
 )
+from utils.ai_analyzer import analyze_resume
 from werkzeug.utils import secure_filename
 from utils.pdf_parser import extract_text
 from dotenv import load_dotenv
@@ -164,10 +165,14 @@ def upload_resume():
     resume_text = extract_text(
         filepath
     )
+    analysis = analyze_resume(
+        resume_text
+    )
 
     return render_template(
         "upload.html",
-        resume_text=resume_text
+        resume_text=resume_text,
+        analysis=analysis
     )
 
 if __name__ == "__main__":
