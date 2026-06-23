@@ -5,6 +5,7 @@ from flask import (
     redirect,
     session
 )
+from models.database import users, resumes
 from utils.ai_analyzer import analyze_resume
 from werkzeug.utils import secure_filename
 from utils.pdf_parser import extract_text
@@ -170,9 +171,39 @@ def upload_resume():
         resume_text
     )
 
+    resumes.insert_one({
+        "user_id": session["user_id"],
+        
+        "filename": filename,
+        
+        "analysis": analysis
+        
+    })
+
     return render_template(
         "upload.html",
         analysis=analysis
     )
+
+@app.route("/history")
+def history():
+
+    if not is_logged_in():
+        return redirect("/login")
+
+    history_data = resumes.find({
+
+        "user_id": session["user_id"]
+
+    })
+
+    return render_template(
+
+        "history.html",
+
+        history_data=history_data
+
+    )
+
 if __name__ == "__main__":
     app.run(debug=True)

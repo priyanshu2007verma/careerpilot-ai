@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Resume History</title>
+</head>
+<body>
+
+<h1>Resume History</h1>
+
+{% for item in history_data %}
+
+<hr>
+
+<h3>{{ item.filename }}</h3>
+
+<pre>
+{{ item.analysis }}
+</pre>
+
+{% endfor %}
+
+<a href="/">
+Back
+</a>
+
+</body>
+</html>
