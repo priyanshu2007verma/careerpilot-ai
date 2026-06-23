@@ -165,15 +165,14 @@ def upload_resume():
     resume_text = extract_text(
         filepath
     )
+
     analysis = analyze_resume(
         resume_text
     )
 
     return render_template(
         "upload.html",
-        resume_text=resume_text,
         analysis=analysis
     )
-
 if __name__ == "__main__":
     app.run(debug=True)

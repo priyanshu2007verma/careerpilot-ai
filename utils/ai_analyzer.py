@@ -11,19 +11,19 @@ client = Groq(
 def analyze_resume(resume_text):
 
     prompt = f"""
-You are an expert ATS Resume Reviewer, Career Coach, and Hiring Manager.
+You are an expert ATS Resume Reviewer and Career Coach.
 
-Analyze the following resume and provide:
+Analyze this resume and provide:
 
-1. Resume Score (out of 100)
-2. ATS Compatibility Score (out of 100)
-3. Top 3 Strengths
-4. Top 3 Weaknesses
-5. Missing Skills or Keywords
-6. 5 Actionable Suggestions
-7. Final Verdict
+Resume Score (out of 100)
 
-Format the response professionally using clear headings.
+ATS Score (out of 100)
+
+Top 3 Strengths
+
+Top 3 Weaknesses
+
+5 Suggestions
 
 Resume:
 
@@ -41,8 +41,8 @@ Resume:
             }
         ],
 
-        temperature=0.4,
-        max_tokens=1200
+        temperature=0.3,
+        max_tokens=1000
 
     )
 
