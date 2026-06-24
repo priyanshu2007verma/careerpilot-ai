@@ -11,22 +11,24 @@ href="{{ url_for('static', filename='style.css') }}">
 
 <body>
 
-<div class="container">
+<div class="auth-container">
 
-<div class="card">
+<div class="auth-card">
 
-<h1 class="logo">
+<div class="auth-title">
 CareerPilot AI
-</h1>
+</div>
 
-<br>
+<div class="auth-subtitle">
+AI-Powered Resume Intelligence Platform
+</div>
 
 <form method="POST">
 
 <input
 type="email"
 name="email"
-placeholder="Email"
+placeholder="Email Address"
 required>
 
 <br><br>
@@ -41,7 +43,7 @@ required>
 
 <button
 type="submit"
-class="btn">
+class="btn btn-full">
 
 Login
 
@@ -49,15 +51,18 @@ Login
 
 </form>
 
-<br>
+<div class="auth-footer">
+
+<p>
+Don't have an account?
+</p>
 
 <a href="/register">
 Create Account
 </a>
 
-<div class="card auth-card">
-    
 </div>
+
 </div>
 
 </div>

@@ -5,6 +5,7 @@ from flask import (
     redirect,
     session
 )
+from bson import ObjectId
 from models.database import users, resumes
 from utils.ai_analyzer import analyze_resume
 from werkzeug.utils import secure_filename
@@ -38,11 +39,60 @@ def home():
     if not is_logged_in():
         return redirect("/login")
 
-    return render_template(
-        "dashboard.html",
-        username=session["username"]
+    user_reports = list(
+
+        resumes.find({
+
+            "user_id":
+            session["user_id"]
+
+        })
+
     )
 
+    total_reports = len(
+        user_reports
+    )
+
+    best_resume = max(
+
+        [r.get(
+            "resume_score",
+            0
+        ) for r in user_reports],
+
+        default=0
+
+    )
+
+    best_ats = max(
+
+        [r.get(
+            "ats_score",
+            0
+        ) for r in user_reports],
+
+        default=0
+
+    )
+
+    recent_reports = user_reports[-5:]
+
+    return render_template(
+
+        "dashboard.html",
+
+        username=session["username"],
+
+        total_reports=total_reports,
+
+        best_resume=best_resume,
+
+        best_ats=best_ats,
+
+        recent_reports=recent_reports
+
+    )
 
 @app.route(
     "/register",
@@ -221,6 +271,20 @@ def history():
         history_data=history_data
 
     )
+
+@app.route("/delete-report/<report_id>")
+def delete_report(report_id):
+
+    if not is_logged_in():
+        return redirect("/login")
+
+    resumes.delete_one({
+
+        "_id": ObjectId(report_id)
+
+    })
+
+    return redirect("/history")
 
 if __name__ == "__main__":
     app.run(debug=True)

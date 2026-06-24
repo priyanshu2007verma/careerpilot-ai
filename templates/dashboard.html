@@ -1,92 +1,142 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CareerPilot AI</title>
 
-    <link rel="stylesheet"
-    href="{{ url_for('static', filename='style.css') }}">
+<title>CareerPilot AI</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 <body>
 
 <div class="container">
 
-    <div class="topbar">
+<div class="topbar">
 
-        <h1 class="logo">
-            CareerPilot AI
-        </h1>
+<h1 class="logo">
+CareerPilot AI
+</h1>
 
-        <a href="/logout" class="btn">
-            Logout
-        </a>
+<a href="/logout" class="btn">
+Logout
+</a>
 
-    </div>
+</div>
 
-    <div class="card">
+<div class="stats">
 
-        <h2>
-            Welcome {{ username }}
-        </h2>
+<div class="card">
+<div class="score">
+{{ total_reports }}
+</div>
+<p>Total Reports</p>
+</div>
 
-        <p>
-            Your AI-powered resume analysis platform.
-        </p>
+<div class="card">
+<div class="score">
+{{ best_ats }}
+</div>
+<p>Best ATS</p>
+</div>
 
-    </div>
+<div class="card">
+<div class="score">
+{{ best_resume }}
+</div>
+<p>Best Resume</p>
+</div>
 
-    <div class="card">
+<div class="card">
+<div class="score">
+{{ total_reports }}
+</div>
+<p>Uploads</p>
+</div>
 
-        <h2>
-            Upload Resume
-        </h2>
+</div>
 
-        <br>
+<div class="dashboard-grid">
 
-        <form
-        action="/upload"
-        method="POST"
-        enctype="multipart/form-data">
+<div class="card">
 
-            <input
-            type="file"
-            name="resume"
-            accept=".pdf"
-            required>
+<h2>Upload Resume</h2>
 
-            <br><br>
+<br>
 
-            <button
-            type="submit"
-            class="btn">
+<div class="upload-box">
 
-                Analyze Resume
+📄 Upload your PDF Resume
 
-            </button>
+<br><br>
 
-        </form>
+<form
+action="/upload"
+method="POST"
+enctype="multipart/form-data">
 
-    </div>
+<input
+type="file"
+name="resume"
+accept=".pdf"
+required>
 
-    <div class="card">
+<br><br>
 
-        <h2>
-            Resume History
-        </h2>
+<button
+type="submit"
+class="btn">
 
-        <br>
+Analyze Resume
 
-        <a href="/history" class="btn">
-            View Previous Reports
-        </a>
+</button>
 
-    </div>
+</form>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Recent Reports</h2>
+
+<br>
+
+{% for report in recent_reports %}
+
+<div class="report-item">
+
+<strong>
+{{ report.filename }}
+</strong>
+
+<br>
+
+Resume:
+{{ report.resume_score }}
+
+|
+
+ATS:
+{{ report.ats_score }}
+
+</div>
+
+<br>
+
+{% endfor %}
+
+<a href="/history" class="btn">
+View All Reports
+</a>
+
+</div>
+
+</div>
 
 </div>
 
 </body>
-<footer>
-    <p style="margin-top:20px;color:gray;">
-        CareerPilot AI v1.0
-    </p>
-</footer>
 </html>
