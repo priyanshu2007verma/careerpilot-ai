@@ -172,19 +172,36 @@ def upload_resume():
     )
 
     resumes.insert_one({
+
         "user_id": session["user_id"],
-        
+
         "filename": filename,
-        
+
+        "resume_score":
+            analysis.get(
+                "resume_score",
+                0
+            ),
+
+        "ats_score":
+            analysis.get(
+                "ats_score",
+                0
+            ),
+
         "analysis": analysis
-        
+
     })
 
     return render_template(
-        "upload.html",
-        analysis=analysis
-    )
 
+        "upload.html",
+
+        analysis=analysis,
+
+        resume_text=resume_text
+
+    )
 @app.route("/history")
 def history():
 

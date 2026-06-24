@@ -1,27 +1,63 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Resume History</title>
+
+<title>Resume History</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 <body>
 
-<h1>Resume History</h1>
+<div class="container">
+
+<h1 class="logo">
+Resume History
+</h1>
 
 {% for item in history_data %}
 
-<hr>
+<div class="card">
 
-<h3>{{ item.filename }}</h3>
+<h2>
+{{ item.filename }}
+</h2>
 
-<pre>
-{{ item.analysis }}
-</pre>
+{% if item.resume_score %}
+
+<p>
+Resume Score:
+<strong>
+{{ item.resume_score }}
+</strong>
+</p>
+
+{% endif %}
+
+{% if item.ats_score %}
+
+<p>
+ATS Score:
+<strong>
+{{ item.ats_score }}
+</strong>
+</p>
+
+{% endif %}
+
+</div>
 
 {% endfor %}
 
-<a href="/">
-Back
+<br>
+
+<a href="/" class="btn">
+Dashboard
 </a>
+
+</div>
 
 </body>
 </html>

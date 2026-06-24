@@ -1,6 +1,7 @@
 from groq import Groq
 from dotenv import load_dotenv
 import os
+import json
 
 load_dotenv()
 
@@ -11,19 +12,35 @@ client = Groq(
 def analyze_resume(resume_text):
 
     prompt = f"""
-You are an expert ATS Resume Reviewer and Career Coach.
+You are an expert ATS Resume Reviewer.
 
-Analyze this resume and provide:
+Analyze the resume.
 
-Resume Score (out of 100)
+Return ONLY valid JSON.
 
-ATS Score (out of 100)
+Example:
 
-Top 3 Strengths
-
-Top 3 Weaknesses
-
-5 Suggestions
+{{
+    "resume_score": 78,
+    "ats_score": 82,
+    "strengths": [
+        "Strong technical skills",
+        "Good project portfolio",
+        "Leadership experience"
+    ],
+    "weaknesses": [
+        "Limited work experience",
+        "Missing certifications",
+        "Lack of quantified achievements"
+    ],
+    "suggestions": [
+        "Add project metrics",
+        "Improve summary section",
+        "Add certifications",
+        "Include GitHub achievements",
+        "Add more ATS keywords"
+    ]
+}}
 
 Resume:
 
@@ -41,9 +58,24 @@ Resume:
             }
         ],
 
-        temperature=0.3,
-        max_tokens=1000
+        temperature=0.1
 
     )
 
-    return response.choices[0].message.content
+    result = response.choices[0].message.content
+
+    result = result.replace(
+        "```json",
+        ""
+    )
+
+    result = result.replace(
+        "```",
+        ""
+    )
+
+    result = result.strip()
+
+    print(result)
+
+    return json.loads(result)

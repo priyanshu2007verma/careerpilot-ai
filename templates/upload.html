@@ -1,23 +1,103 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>CareerPilot AI Report</title>
+
+<title>CareerPilot AI Report</title>
+
+<link rel="stylesheet"
+href="{{ url_for('static', filename='style.css') }}">
+
 </head>
+
 <body>
 
-<h1>CareerPilot AI Report</h1>
+<div class="container">
 
-<hr>
+<h1 class="logo">
+CareerPilot AI Report
+</h1>
 
-<pre>
-{{ analysis }}
-</pre>
+<div class="stats">
 
-<hr>
+<div class="card">
 
-<a href="/">
-Upload Another Resume
+<h2>
+{{ analysis.resume_score }}
+</h2>
+
+<p>
+Resume Score
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>
+{{ analysis.ats_score }}
+</h2>
+
+<p>
+ATS Score
+</p>
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Strengths</h2>
+
+<ul>
+
+{% for item in analysis.strengths %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>Weaknesses</h2>
+
+<ul>
+
+{% for item in analysis.weaknesses %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<div class="card">
+
+<h2>Suggestions</h2>
+
+<ul>
+
+{% for item in analysis.suggestions %}
+
+<li>{{ item }}</li>
+
+{% endfor %}
+
+</ul>
+
+</div>
+
+<a href="/" class="btn">
+Dashboard
 </a>
+
+</div>
 
 </body>
 </html>

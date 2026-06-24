@@ -2,45 +2,91 @@
 <html>
 <head>
     <title>CareerPilot AI</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 
-<h1>
-    Welcome {{ username }}
-</h1>
+<div class="container">
 
-<h2>
-    CareerPilot AI Dashboard
-</h2>
+    <div class="topbar">
 
-<form
-    action="/upload"
-    method="POST"
-    enctype="multipart/form-data"
->
+        <h1 class="logo">
+            CareerPilot AI
+        </h1>
 
-    <input
-        type="file"
-        name="resume"
-        accept=".pdf"
-        required
-    >
+        <a href="/logout" class="btn">
+            Logout
+        </a>
 
-    <button type="submit">
-        Upload Resume
-    </button>
+    </div>
 
-</form>
+    <div class="card">
 
-<br>
+        <h2>
+            Welcome {{ username }}
+        </h2>
 
-<a href="/logout">
-    Logout
-</a>
+        <p>
+            Your AI-powered resume analysis platform.
+        </p>
 
-<a href="/history">
-View Resume History
-</a>
+    </div>
+
+    <div class="card">
+
+        <h2>
+            Upload Resume
+        </h2>
+
+        <br>
+
+        <form
+        action="/upload"
+        method="POST"
+        enctype="multipart/form-data">
+
+            <input
+            type="file"
+            name="resume"
+            accept=".pdf"
+            required>
+
+            <br><br>
+
+            <button
+            type="submit"
+            class="btn">
+
+                Analyze Resume
+
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="card">
+
+        <h2>
+            Resume History
+        </h2>
+
+        <br>
+
+        <a href="/history" class="btn">
+            View Previous Reports
+        </a>
+
+    </div>
+
+</div>
 
 </body>
+<footer>
+    <p style="margin-top:20px;color:gray;">
+        CareerPilot AI v1.0
+    </p>
+</footer>
 </html>
